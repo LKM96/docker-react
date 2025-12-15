@@ -1,10 +1,18 @@
 sudo: required
 services:
   - docker
+
 before_install:
-  - docker build -t leonmuzire/docker-react -f Dockerfile .
+  # Build only the tester stage
+  - docker build --target tester -t leonmuzire/docker-react-test -f Dockerfile .
+
 script:
-  - docker run -e CI=true leonmuzire/docker-react npm test -- --coverage
+  # Run tests using the tester stage
+  - docker run -e CI=true leonmuzire/docker-react-test npm test -- --coverage
+
+  # Build the full production image
+  - docker build -t leonmuzire/docker-react-prod -f Dockerfile .
+
 deploy:
   provider: elasticbeanstalk
   region: "eu-north-1"
