@@ -7,10 +7,3 @@ test('renders changed link text', () => {
   expect(linkElement).toBeInTheDocument();
 });
 
-test('renders changed link text', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/i was changed/i);
-  expect(linkElement).toBeInTheDocument();
-});
-
-
